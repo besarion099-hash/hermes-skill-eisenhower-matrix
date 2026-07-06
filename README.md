@@ -2,6 +2,8 @@
 
 *Deutsch | [English below ⬇](#english)*
 
+![Project overview / Projekt-Übersicht](docs/project-overview-en.png)
+
 Persönlicher Priorisierungs-Assistent nach der Eisenhower-Methode für den [Hermes Agent](https://hermes-agent.nousresearch.com/): Aufgaben per **Text, Bild oder Sprachnachricht** erfassen (z. B. über Telegram), den **KI-Vorschlag** für den passenden Quadranten bestätigen, dauerhafte Matrix im Chat oder als HTML ansehen.
 
 ## Funktionen
