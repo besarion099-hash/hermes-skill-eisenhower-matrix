@@ -2,7 +2,7 @@
 
 *Deutsch | [English below ⬇](#english)*
 
-![Project overview / Projekt-Übersicht](docs/project-overview-en.png)
+![Projekt-Übersicht (Deutsch)](docs/projekt-uebersicht-de.png)
 
 Persönlicher Priorisierungs-Assistent nach der Eisenhower-Methode für den [Hermes Agent](https://hermes-agent.nousresearch.com/): Aufgaben per **Text, Bild oder Sprachnachricht** erfassen (z. B. über Telegram), den **KI-Vorschlag** für den passenden Quadranten bestätigen, dauerhafte Matrix im Chat oder als HTML ansehen.
 
@@ -55,6 +55,8 @@ Alles ist reines Markdown/HTML — direkt editierbar, keine Skripte, keine Abhä
 <a name="english"></a>
 
 # eisenhower-matrix — Hermes Agent Skill (English)
+
+![Project overview (English)](docs/project-overview-en.png)
 
 A personal prioritization assistant for the [Hermes Agent](https://hermes-agent.nousresearch.com/) based on the Eisenhower method: capture tasks via **text, image, or voice message** (e.g. through Telegram), confirm the **AI-suggested** quadrant, and keep a persistent matrix you can view in chat or as HTML.
 
