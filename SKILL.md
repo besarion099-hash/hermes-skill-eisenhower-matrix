@@ -1,7 +1,7 @@
 ---
 name: eisenhower-matrix
 description: Persönliches Produktivitätssystem aus 5 Methoden — Aufgaben erfassen (2-Minuten-Filter), nach Eisenhower sortieren, per Pareto gewichten, abends max. 6 Tagesaufgaben wählen (Ivy Lee) und morgens mit dem Frosch starten (Eat That Frog). Eine dauerhafte Matrix-Datei, kompakt im Chat oder als HTML.
-version: 2.0.0
+version: 2.1.0
 author: Besarion
 metadata:
   hermes:
@@ -31,6 +31,7 @@ Aufgaben kommen als Text, Bild oder Sprachnachricht herein; du analysierst sie, 
 - **„plane meinen Tag", „Abendplanung", „Tagesplan für morgen"** → Procedure D
 - **„was ist mein Frosch?", „womit fange ich an?", „guten Morgen"-Routine** → Procedure E
 - **„Tag abschließen", „Feierabend", „was habe ich heute geschafft?"** → Procedure F
+- **„meine Ziele", „zeig meine Leitziele", „ändere Ziel 2"** → Procedure G
 - Explizit: `/eisenhower-matrix …`
 
 ## Quick Reference
@@ -41,6 +42,7 @@ Aufgaben kommen als Text, Bild oder Sprachnachricht herein; du analysierst sie, 
 - Fehlt die Datei: aus `templates/eisenhower.md` anlegen und Nutzer kurz informieren
 - Quadranten: 🔴 Q1 dringend & wichtig (sofort) · 🟡 Q2 wichtig, nicht dringend (einplanen) · 🔵 Q3 dringend, nicht wichtig (delegieren) · ⚪ Q4 weder noch (streichen/irgendwann) · ✅ Erledigt (Archiv)
 - Tagesplan: Abschnitt `## 🐸 Heute (<YYYY-MM-DD>)` ganz oben in der Matrix-Datei, nummerierte Liste 1–6, Platz 1 = Frosch
+- Leitziele: Abschnitt `## 🎯 Leitziele` (max. 3) in der Matrix-Datei — der Maßstab für „wichtig?" und für die Pareto-Auswahl abends
 - Einstufungsregeln und Beispiele: `references/classification-guide.md`
 - Tagesplanungs-Regeln (Ivy Lee, Pareto, Frosch): `references/tagesplan-guide.md`
 - HTML-Ansicht: `templates/eisenhower.html` befüllen (Platzhalter `<!--TODAY_ITEMS-->`, `<!--Q1_ITEMS-->` … `<!--Q4_ITEMS-->`, `<!--UPDATED-->`)
@@ -64,7 +66,7 @@ Aufgaben kommen als Text, Bild oder Sprachnachricht herein; du analysierst sie, 
    - **Text:** Aufgabe(n) direkt extrahieren.
    - **Bild:** Kurz benennen, was du erkennst („Rechnung von Stadtwerke, fällig 15.07."), daraus die Aufgabe ableiten.
    - **Sprachnachricht:** Aus der Transkription die Aufgabe(n) extrahieren.
-2. Quadranten **vorschlagen** (Standardweg), mit Ein-Satz-Begründung. Regeln: `references/classification-guide.md`. Format:
+2. Quadranten **vorschlagen** (Standardweg), mit Ein-Satz-Begründung. Wichtigkeit prüfen in dieser Reihenfolge: (a) Zahlt die Aufgabe auf ein 🎯 Leitziel ein? — dann das Ziel in der Begründung nennen („→ zahlt auf Ziel 2 ein"); (b) sonst die Konsequenz-Frage: „Was passiert, wenn es liegen bleibt?" Regeln: `references/classification-guide.md`. Format:
    > „Ich habe notiert: *<Aufgabe>*. Mein Vorschlag: <Emoji> <Q?> — <Begründung>. Passt das? (ja / oder 1–4 für einen anderen Quadranten)"
 3. Antwort auswerten: „ja"/👍 → speichern; Zahl 1–4 oder freie Formulierung → Korrektur übernehmen.
 4. Nur wenn keine belastbare Einschätzung möglich ist: offene Frage ohne Vorschlag —
@@ -93,7 +95,8 @@ Regeln im Detail: `references/tagesplan-guide.md`.
 1. Matrix lesen. Kandidaten sammeln in dieser Reihenfolge:
    a. **Übertrag:** unerledigte Aufgaben aus dem aktuellen Heute-Abschnitt (ohne ✅) — die kommen zuerst.
    b. Alle offenen 🔴 Q1-Aufgaben.
-   c. 🟡 Q2-Aufgaben — per Pareto auswählen: „Welche bringt morgen den größten Effekt in Richtung deiner Ziele?"
+   c. 🟡 Q2-Aufgaben — per Pareto auswählen: „Welche bringt morgen Ziel 1–3 (🎯 Leitziele) am weitesten voran?" Sind keine Leitziele definiert: EINMAL anbieten, jetzt bis zu 3 festzulegen (Procedure G) — lehnt der Nutzer ab, nie wieder ungefragt nachhaken.
+   d. **Q1-Überlauf-Check:** Stehen mehr als 5 offene Aufgaben in Q1, kann nicht alles gleich dringend UND wichtig sein — anbieten, die Einstufung gemeinsam zu prüfen, bevor geplant wird.
 2. Daraus **maximal 6** vorschlagen, davon **mindestens 2 aus Q2** (Konfliktregel 2). Q3/Q4 nie (Konfliktregel 4).
 3. **Frosch bestimmen:** die wichtigste UND unangenehmste Aufgabe auf Platz 1 — im Zweifel fragen: „Welche davon schiebst du am längsten vor dir her?"
 4. Vorschlag als nummerierte Liste zeigen, Frosch markiert:
@@ -116,6 +119,16 @@ Regeln im Detail: `references/tagesplan-guide.md`.
 3. Unerledigtes: kommentarlos als Übertrag für die nächste Abendplanung vormerken (Konfliktregel 3) — kein Vorwurf, keine Rechtfertigungsfragen.
 4. Wenn der Nutzer mag, direkt in die Abendplanung (Procedure D) übergehen — das ist der Ivy-Lee-Idealfall: Tag abschließen + morgen planen in einem Rutsch.
 
+### G. Leitziele pflegen
+
+Die Leitziele beantworten: „Was will ich dieses Jahr voranbringen?" Sie machen aus der schwammigen Frage „ist das wichtig?" die klare Frage „zahlt das auf Ziel 1, 2 oder 3 ein?".
+
+1. **Anzeigen** („meine Ziele"): die bis zu 3 Ziele aus dem 🎯-Abschnitt nennen.
+2. **Festlegen/Ändern** („ändere Ziel 2", „mein neues Ziel ist …"): Formulierung des Nutzers wörtlich übernehmen (ein bis zwei Sätze), Abschnitt aktualisieren, kurz bestätigen.
+3. **Maximal 3 Ziele** — bei mehr freundlich begrenzen: mit 5+ Zielen ist wieder alles „wichtig" und der Maßstab ist weg.
+4. **Noch keine Ziele definiert:** alles funktioniert wie bisher (Konsequenz-Frage als Maßstab). Einmalig bei einer Abendplanung anbieten, Ziele festzulegen — nie wiederholt nerven.
+5. Ziele sind langfristig: bei der Einstufung und Abendplanung nur LESEN, nie ungefragt umformulieren.
+
 ## Pitfalls
 
 - Matrix-Datei unlesbar/fremdes Format → NICHT überschreiben; Nutzer fragen (reparieren vs. neu anlegen), vorher Kopie als `eisenhower.md.bak` sichern.
@@ -127,6 +140,8 @@ Regeln im Detail: `references/tagesplan-guide.md`.
 - Nutzer will 8 oder 10 Tagesaufgaben → bei max. 6 bleiben und den Grund nennen (Fokus ist der Kern von Ivy Lee).
 - Nutzer startet den Tag mit Kleinkram-Fragen („soll ich erst die Mails machen?") → freundlich an den Frosch erinnern, nicht belehren.
 - 2-Minuten-Filter zu aggressiv → im Zweifel speichern; der Filter ist ein Angebot, kein Zwang.
+- Leitziele sind Nutzer-Text → beim Einstufen/Planen nur lesen, nie umformulieren oder löschen; Änderungen nur auf ausdrücklichen Wunsch (Procedure G).
+- Q1 quillt über (>5 Einträge) → nicht stumm weiterplanen; Einstufungs-Check anbieten.
 
 ## Verification
 
@@ -135,6 +150,8 @@ Regeln im Detail: `references/tagesplan-guide.md`.
 - Foto einer Rechnung mit Frist → extrahierte Aufgabe samt Deadline und passendem Quadrant-Vorschlag.
 - „zeig meine Matrix" → Heute-Abschnitt zuerst, dann 4 Quadranten kompakt im Chat, leere als „—".
 - „plane meinen Tag" → max. 6 Aufgaben, Frosch auf Platz 1 markiert, ≥2 aus Q2, Übertrag zuerst; nach „ja" steht `## 🐸 Heute` oben in der Matrix-Datei.
+- „meine Ziele" → die 3 Leitziele werden genannt (oder das einmalige Angebot, sie festzulegen).
+- Aufgabe mit Leitziel-Bezug → Begründung nennt das Ziel („→ zahlt auf Ziel 2 ein").
 - „was ist mein Frosch?" → Aufgabe 1 aus Heute, kein Kleinkram-Angebot.
 - „X erledigt" → Eintrag im Archiv mit Erledigt-Datum, im Heute-Abschnitt ✅.
 - Nächste Abendplanung → gestriges Unerledigtes erscheint als Übertrag ganz oben im Vorschlag.

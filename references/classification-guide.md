@@ -11,14 +11,17 @@ Dringend, wenn mindestens eines zutrifft:
 
 Nicht dringend: „irgendwann", „bei Gelegenheit", „langfristig", keine Frist erkennbar.
 
-## Wichtigkeit (Konsequenzen / eigene Ziele)
+## Wichtigkeit (Leitziele zuerst, dann Konsequenzen)
 
-Wichtig, wenn mindestens eines zutrifft:
-- Spürbare Konsequenz bei Nichterledigung (Geld, Gesundheit, Recht, Familie, Job): Rechnungen, Behörden, Arzttermine, Verträge
-- Bezug zu bekannten Zielen/Projekten des Nutzers (aus Gesprächskontext/Memory)
-- Nur der Nutzer selbst kann es erledigen
+In dieser Reihenfolge prüfen:
 
-Nicht wichtig: delegierbar, kosmetisch, „nice to have", reine Routine ohne Konsequenz.
+1. **🎯 Leitziel-Bezug (stärkstes Signal):** Zahlt die Aufgabe auf eines der max. 3 Leitziele aus der Matrix-Datei ein? → wichtig; das Ziel in der Begründung nennen („→ zahlt auf Ziel 2 ein").
+2. **Konsequenz-Frage:** „Was passiert, wenn es liegen bleibt?" Spürbare Konsequenz (Geld, Gesundheit, Recht, Familie, Job): Rechnungen, Behörden, Arzttermine, Verträge → wichtig.
+3. Nur der Nutzer selbst kann es erledigen → spricht für wichtig.
+
+Nicht wichtig: kein Leitziel-Bezug UND keine spürbare Konsequenz — delegierbar, kosmetisch, „nice to have", reine Routine.
+
+Sind keine Leitziele definiert, gilt Kriterium 2 und 3 allein (wie früher).
 
 ## Matrix der Vorschläge
 
@@ -34,6 +37,7 @@ Nicht wichtig: delegierbar, kosmetisch, „nice to have", reine Routine ohne Kon
 - Text: „muss HEUTE noch die Versicherung anrufen" → Q1 (Signalwort „heute" + Konsequenz).
 - Bild: Foto einer Rechnung, fällig in 9 Tagen → Q1, Aufgabe „<Absender>-Rechnung zahlen (bis <Datum>)".
 - Sprachnachricht: „denk dran, ich will dieses Jahr endlich Spanisch lernen" → Q2 (Ziel, keine Frist).
+- Text: „Vokabel-App einrichten" bei Leitziel 2 „Spanisch lernen" → Q2 („→ zahlt auf Ziel 2 ein").
 - Text: „Newsletter abbestellen irgendwann" → Q4.
 - Text: „Paket für Nachbarn annehmen, Bote kommt um 14 Uhr" → Q3 (zeitgebunden, delegierbar/gering).
 

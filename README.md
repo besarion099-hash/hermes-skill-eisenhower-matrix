@@ -1,4 +1,4 @@
-# eisenhower-matrix — Hermes-Agent-Skill (v2.0)
+# eisenhower-matrix — Hermes-Agent-Skill (v2.1)
 
 *Deutsch | [English below ⬇](#english)*
 
@@ -18,6 +18,7 @@ Persönliches **Produktivitätssystem aus 5 Methoden** für den [Hermes Agent](h
 
 - 📥 **Erfassen:** Notiz schicken — als Text, Foto (Rechnung, Brief, Liste) oder Sprachnachricht; Kleinkram unter 2 Minuten wird gar nicht erst gespeichert, sondern gleich erledigt
 - 🤖 **KI-Vorschlag:** Hermes schlägt einen Quadranten mit Begründung vor — bestätigen mit „ja" oder korrigieren mit 1–4
+- 🎯 **Leitziele:** Bis zu 3 persönliche Jahresziele in der Matrix-Datei machen aus „ist das wichtig?" die klare Frage „zahlt das auf Ziel 1–3 ein?" — der Maßstab für Einstufung UND Abendplanung
 - 🌙 **Abendplanung (Ivy Lee):** „plane meinen Tag" → max. 6 Aufgaben für morgen, Übertrag zuerst, mindestens 2 wichtige-nicht-dringende (Pareto-Schutz), Frosch auf Platz 1
 - 🐸 **Morgen-Frosch:** „was ist mein Frosch?" → die wichtigste & unangenehmste Aufgabe zuerst — kein Kleinkram vor dem Frosch
 - 🗂️ **Dauerhafte Matrix:** Alle Aufgaben in einer Markdown-Datei (funktioniert wunderbar in einem Obsidian-Vault), Tagesplan als „🐸 Heute"-Abschnitt obendrauf
@@ -76,7 +77,7 @@ Alles ist reines Markdown/HTML — direkt editierbar, keine Skripte, keine Abhä
 
 <a name="english"></a>
 
-# eisenhower-matrix — Hermes Agent Skill (v2.0, English)
+# eisenhower-matrix — Hermes Agent Skill (v2.1, English)
 
 ![Project overview (English)](docs/project-overview-en.png)
 
@@ -94,6 +95,7 @@ A personal **5-method productivity system** for the [Hermes Agent](https://herme
 
 - 📥 **Capture:** send a note — text, photo (invoice, letter, list), or voice message; anything under 2 minutes is done immediately instead of stored
 - 🤖 **AI suggestion:** Hermes proposes a quadrant with a one-sentence reason — confirm with "yes" or correct with 1–4
+- 🎯 **Guiding goals:** up to 3 personal yearly goals in the matrix file turn "is this important?" into the clear question "does it advance goal 1–3?" — the benchmark for classification AND evening planning
 - 🌙 **Evening planning (Ivy Lee):** "plan my day" → max. 6 tasks for tomorrow, carry-over first, at least 2 important-not-urgent ones (Pareto guard), frog in slot 1
 - 🐸 **Morning frog:** "what's my frog?" → the most important & most unpleasant task first — no small stuff before the frog
 - 🗂️ **Persistent matrix:** all tasks in one Markdown file (works beautifully inside an Obsidian vault), with the daily plan as a "🐸 Today" section on top

@@ -16,10 +16,12 @@ Wie aus der Matrix jeden Abend ein Tagesplan mit maximal 6 Aufgaben wird — und
 
 1. **Übertrag** — gestern Geplantes ohne ✅ kommt zuerst, unverändert und ohne Kommentar. Ivy Lee sieht das ausdrücklich vor: Nichterledigtes ist normal, es rutscht einfach nach vorn.
 2. **🔴 Q1** — alles Offene mit echtem Zeitdruck.
-3. **🟡 Q2 per Pareto** — hier entscheidet die Wirkungsfrage, nicht die Reihenfolge in der Liste:
-   - „Welche dieser Aufgaben bringt dich deinen Zielen am weitesten näher?"
+3. **🟡 Q2 per Pareto** — hier entscheidet die Wirkungsfrage, nicht die Reihenfolge in der Liste. Maßstab sind die 🎯 Leitziele aus der Matrix-Datei:
+   - „Welche dieser Aufgaben bringt Ziel 1, 2 oder 3 am weitesten voran?"
    - „Welche macht andere Aufgaben überflüssig oder leichter?"
    - „Welche bereust du in einem Monat am meisten, wenn sie liegen bleibt?"
+
+**Q1-Überlauf-Check:** Stehen mehr als 5 offene Aufgaben in Q1, stimmt fast sicher die Einstufung nicht („alles dringend UND wichtig" gibt es selten). Vor dem Planen anbieten, die Q1-Liste gemeinsam durchzugehen — meist gehört die Hälfte nach Q2 oder Q3.
 
 ## Die Quoten-Regel: mindestens 2 × Q2
 
