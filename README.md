@@ -1,19 +1,38 @@
-# eisenhower-matrix — Hermes-Agent-Skill
+# eisenhower-matrix — Hermes-Agent-Skill (v2.0)
 
 *Deutsch | [English below ⬇](#english)*
 
 ![Projekt-Übersicht (Deutsch)](docs/projekt-uebersicht-de.png)
 
-Persönlicher Priorisierungs-Assistent nach der Eisenhower-Methode für den [Hermes Agent](https://hermes-agent.nousresearch.com/): Aufgaben per **Text, Bild oder Sprachnachricht** erfassen (z. B. über Telegram), den **KI-Vorschlag** für den passenden Quadranten bestätigen, dauerhafte Matrix im Chat oder als HTML ansehen.
+Persönliches **Produktivitätssystem aus 5 Methoden** für den [Hermes Agent](https://hermes-agent.nousresearch.com/) — die Methoden greifen wie ein Fließband ineinander, statt sich zu widersprechen:
+
+| Station | Methode | Frage |
+|---|---|---|
+| 1. Erfassen | **2-Minuten-Regel** | Unter 2 Minuten? Sofort machen, nicht speichern |
+| 2. Sortieren | **Eisenhower-Matrix** | Muss ICH das tun — und wann? |
+| 3. Gewichten | **Pareto 80/20** | Welche Aufgaben bringen den größten Effekt? |
+| 4. Tagesplan | **Ivy Lee** | Abends max. 6 Aufgaben für morgen wählen |
+| 5. Ausführen | **Eat That Frog** | Morgens mit Aufgabe Nr. 1 (dem 🐸 Frosch) starten |
 
 ## Funktionen
 
-- 📥 **Erfassen:** Notiz schicken — als Text („Notiz: Zahnarzttermin ausmachen"), Foto (Rechnung, Brief, handschriftliche Liste) oder Sprachnachricht
-- 🤖 **KI-Vorschlag:** Hermes analysiert die Eingabe und schlägt einen Quadranten mit Begründung vor — bestätigen mit „ja" oder korrigieren mit 1–4
-- 🗂️ **Dauerhafte Matrix:** Alle Aufgaben landen in einer Markdown-Datei (funktioniert auch wunderbar in einem Obsidian-Vault)
-- 👀 **Ansehen:** „zeig meine Matrix" → kompakte 🔴🟡🔵⚪-Übersicht im Chat; „als Datei" → HTML-Ansicht (2×2-Grid)
-- ✅ **Pflegen in normaler Sprache:** „X erledigt", „verschieb X", „streich X", „räum die Matrix auf"
-- ⏰ **Optional:** Anleitung für einen täglichen Morgen-Check per Hermes-Cron (wird nie automatisch eingerichtet)
+- 📥 **Erfassen:** Notiz schicken — als Text, Foto (Rechnung, Brief, Liste) oder Sprachnachricht; Kleinkram unter 2 Minuten wird gar nicht erst gespeichert, sondern gleich erledigt
+- 🤖 **KI-Vorschlag:** Hermes schlägt einen Quadranten mit Begründung vor — bestätigen mit „ja" oder korrigieren mit 1–4
+- 🌙 **Abendplanung (Ivy Lee):** „plane meinen Tag" → max. 6 Aufgaben für morgen, Übertrag zuerst, mindestens 2 wichtige-nicht-dringende (Pareto-Schutz), Frosch auf Platz 1
+- 🐸 **Morgen-Frosch:** „was ist mein Frosch?" → die wichtigste & unangenehmste Aufgabe zuerst — kein Kleinkram vor dem Frosch
+- 🗂️ **Dauerhafte Matrix:** Alle Aufgaben in einer Markdown-Datei (funktioniert wunderbar in einem Obsidian-Vault), Tagesplan als „🐸 Heute"-Abschnitt obendrauf
+- 👀 **Ansehen:** „zeig meine Matrix" → kompakte Übersicht im Chat; „als Datei" → HTML-Ansicht (Heute-Band + 2×2-Grid)
+- ✅ **Pflegen in normaler Sprache:** „X erledigt", „verschieb X", „streich X", „Tag abschließen"
+- ⏰ **Optional:** fester Tagesrhythmus per Hermes-Cron (z. B. 18:00 Abendplanung, 7:00 Frosch) — wird nie automatisch eingerichtet
+
+## Die 4 Konfliktregeln
+
+Damit die 5 Methoden harmonieren statt konkurrieren:
+
+1. Die 2-Minuten-Regel gilt nur beim **Erfassen** — nie als Start in den Tag (sonst frisst Kleinkram den Frosch-Morgen).
+2. Mindestens **2 der 6 Tagesplätze** gehören Q2-Aufgaben (sonst gewinnt immer das Dringende).
+3. Unerledigtes wandert **kommentarlos als Übertrag** an die Spitze des nächsten Tagesplans.
+4. Q3/Q4 belegen **nie** Tagesplan-Plätze.
 
 ## Installation
 
@@ -23,6 +42,8 @@ Persönlicher Priorisierungs-Assistent nach der Eisenhower-Methode für den [Her
    - **Docker:** in den Daten-Ordner, der als Hermes-Home gemountet ist, z. B. `<datenordner>/skills/productivity/eisenhower-matrix/`
 2. Prüfen: `hermes skills list` → `eisenhower-matrix` muss erscheinen.
 3. Loslegen: eine Notiz schicken — die Matrix-Datei wird beim ersten Einsatz automatisch angelegt.
+
+Der Skill funktioniert auch in anderen Agenten (z. B. Claude Code): Ordner ins jeweilige Skills-Verzeichnis kopieren und in `SKILL.md` den Pfad zur Matrix-Datei anpassen.
 
 ## Konfiguration (optional)
 
@@ -38,13 +59,14 @@ hermes config set eisenhower.file "obsidian-vault/Eisenhower-Matrix.md"
 
 ```
 eisenhower-matrix/
-├── SKILL.md                      # Verhaltensanleitung für Hermes
+├── SKILL.md                      # Verhaltensanleitung (5-Methoden-System)
 ├── templates/
-│   ├── eisenhower.md             # Vorlage der Matrix-Datei
-│   └── eisenhower.html           # HTML-Ansicht (2×2-Grid)
+│   ├── eisenhower.md             # Vorlage der Matrix-Datei (mit 🐸 Heute-Abschnitt)
+│   └── eisenhower.html           # HTML-Ansicht (Heute-Band + 2×2-Grid)
 ├── references/
-│   ├── classification-guide.md   # Einstufungsregeln + Beispiele
-│   └── cron-setup.md             # Optionaler Morgen-Check
+│   ├── classification-guide.md   # Eisenhower-Einstufungsregeln + Beispiele
+│   ├── tagesplan-guide.md        # Ivy Lee, Pareto & Frosch-Wahl
+│   └── cron-setup.md             # Tagesrhythmus-Routinen (18:00 / 7:00)
 └── README.md
 ```
 
@@ -54,20 +76,39 @@ Alles ist reines Markdown/HTML — direkt editierbar, keine Skripte, keine Abhä
 
 <a name="english"></a>
 
-# eisenhower-matrix — Hermes Agent Skill (English)
+# eisenhower-matrix — Hermes Agent Skill (v2.0, English)
 
 ![Project overview (English)](docs/project-overview-en.png)
 
-A personal prioritization assistant for the [Hermes Agent](https://hermes-agent.nousresearch.com/) based on the Eisenhower method: capture tasks via **text, image, or voice message** (e.g. through Telegram), confirm the **AI-suggested** quadrant, and keep a persistent matrix you can view in chat or as HTML.
+A personal **5-method productivity system** for the [Hermes Agent](https://hermes-agent.nousresearch.com/) — the methods work as one pipeline instead of competing:
+
+| Stage | Method | Question |
+|---|---|---|
+| 1. Capture | **2-minute rule** | Under 2 minutes? Do it now, don't store it |
+| 2. Sort | **Eisenhower matrix** | Do I have to do this — and when? |
+| 3. Weigh | **Pareto 80/20** | Which tasks create the biggest impact? |
+| 4. Daily plan | **Ivy Lee** | Pick max. 6 tasks for tomorrow, every evening |
+| 5. Execute | **Eat That Frog** | Start the morning with task #1 (the 🐸 frog) |
 
 ## Features
 
-- 📥 **Capture:** send a note — as text ("note: book a dentist appointment"), a photo (invoice, letter, handwritten list), or a voice message
-- 🤖 **AI suggestion:** Hermes analyzes the input and proposes a quadrant with a one-sentence reason — confirm with "yes" or correct with 1–4
-- 🗂️ **Persistent matrix:** all tasks live in one Markdown file (works beautifully inside an Obsidian vault)
-- 👀 **View:** "show my matrix" → compact 🔴🟡🔵⚪ overview in chat; "as a file" → HTML view (2×2 grid)
-- ✅ **Maintain in plain language:** "X is done", "move X", "delete X", "clean up the matrix"
-- ⏰ **Optional:** guide for a daily morning check via Hermes cron (never set up automatically)
+- 📥 **Capture:** send a note — text, photo (invoice, letter, list), or voice message; anything under 2 minutes is done immediately instead of stored
+- 🤖 **AI suggestion:** Hermes proposes a quadrant with a one-sentence reason — confirm with "yes" or correct with 1–4
+- 🌙 **Evening planning (Ivy Lee):** "plan my day" → max. 6 tasks for tomorrow, carry-over first, at least 2 important-not-urgent ones (Pareto guard), frog in slot 1
+- 🐸 **Morning frog:** "what's my frog?" → the most important & most unpleasant task first — no small stuff before the frog
+- 🗂️ **Persistent matrix:** all tasks in one Markdown file (works beautifully inside an Obsidian vault), with the daily plan as a "🐸 Today" section on top
+- 👀 **View:** "show my matrix" → compact overview in chat; "as a file" → HTML view (today band + 2×2 grid)
+- ✅ **Maintain in plain language:** "X is done", "move X", "delete X", "close the day"
+- ⏰ **Optional:** fixed daily rhythm via Hermes cron (e.g. 6 pm planning, 7 am frog) — never set up automatically
+
+## The 4 conflict rules
+
+So the 5 methods harmonize instead of competing:
+
+1. The 2-minute rule applies only at **capture time** — never as the way to start the day.
+2. At least **2 of the 6 daily slots** go to Q2 tasks (otherwise the urgent always wins).
+3. Unfinished tasks **carry over without comment** to the top of the next daily plan.
+4. Q3/Q4 **never** occupy daily-plan slots.
 
 ## Installation
 
@@ -77,6 +118,8 @@ A personal prioritization assistant for the [Hermes Agent](https://hermes-agent.
    - **Docker:** into the data folder mounted as the Hermes home, e.g. `<data-dir>/skills/productivity/eisenhower-matrix/`
 2. Verify: `hermes skills list` → `eisenhower-matrix` should appear.
 3. Start: just send a note — the matrix file is created automatically on first use.
+
+The skill also works in other agents (e.g. Claude Code): copy the folder into that agent's skills directory and adjust the matrix file path in `SKILL.md`.
 
 ## Configuration (optional)
 
@@ -94,4 +137,4 @@ Same as above — pure Markdown/HTML, directly editable, no scripts, no dependen
 
 ---
 
-**Autor / Author:** Besarion · Erstellt mit / Created with Claude (Fable 5) · Lizenz / License: MIT
+**Autor / Author:** Besarion · Erstellt mit / Created with Claude · Lizenz / License: MIT

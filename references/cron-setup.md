@@ -1,24 +1,34 @@
-# Optionaler Morgen-Check (Cron)
+# Erinnerungs-Routinen (Cron)
 
-Dieser Skill richtet NIE selbst eine Routine ein. Wenn der Nutzer nach Erinnerungen, einem täglichen Überblick o. Ä. fragt, biete diese Anleitung an.
+Dieser Skill richtet NIE selbst eine Routine ein. Wenn der Nutzer nach Erinnerungen oder einem festen Tagesrhythmus fragt, biete diese Anleitung an. Vor dem Anlegen immer die Uhrzeiten bestätigen lassen.
 
-## Was der Morgen-Check tut
+## Der empfohlene Tagesrhythmus (2 Routinen)
 
-Zu einer festen Zeit (z. B. werktags 08:00) schickt Hermes proaktiv:
-1. Alle offenen 🔴 Q1-Aufgaben („heute dran")
-2. Hinweise auf überfällige Deadlines in allen Quadranten
-3. Optional: Aufräum-Kandidaten (⚪ Q4-Einträge älter als 30 Tage)
+Das 5-Methoden-System entfaltet seine Wirkung durch zwei feste Zeitpunkte:
+
+### 1. Abendplanung — täglich 18:00 (Ivy Lee)
+
+Cron-Prompt:
+> „Nutze den Skill eisenhower-matrix, Procedure D (Abendplanung): Lies die Matrix, schlage maximal 6 Aufgaben für morgen vor (Übertrag zuerst, mindestens 2 aus Q2, Frosch mit 🐸 auf Platz 1) und bitte um Bestätigung. Antworte kompakt für Telegram."
+
+### 2. Morgen-Frosch — täglich 7:00 (Eat That Frog)
+
+Cron-Prompt:
+> „Nutze den Skill eisenhower-matrix, Procedure E (Morgen-Frosch): Nenne die Aufgabe 1 aus dem Heute-Abschnitt mit einem Satz Motivation, dann kompakt die Aufgaben 2–6. Keine Kleinkram-Vorschläge. Antworte kompakt für Telegram."
+
+## Optional: Wochenrück- und -ausblick
+
+Zusätzlich möglich (z. B. sonntags 18:00): Aufräum-Kandidaten (Q4 älter als 30 Tage), überfällige Deadlines, Archiv-Bilanz der Woche. Nur einrichten, wenn ausdrücklich gewünscht.
 
 ## Einrichtung (durch den Nutzer angestoßen)
 
 Der Nutzer sagt z. B.:
-> „Richte mir einen täglichen Eisenhower-Check werktags um 8 Uhr ein."
+> „Richte mir die Abendplanung um 18 Uhr und den Frosch um 7 Uhr ein."
 
-Hermes legt daraufhin mit seinem Cron-/Scheduler-Feature einen Job an, dessen Prompt lautet:
-> „Nutze den Skill eisenhower-matrix: Zeige alle offenen Q1-Aufgaben, nenne überfällige Deadlines und schlage höchstens drei Aufräum-Kandidaten aus Q4 vor. Antworte kompakt für Telegram."
+Hermes legt daraufhin mit seinem Cron-/Scheduler-Feature die Jobs mit den obigen Prompts an.
 
 ## Anpassen und Beenden
 
-- Andere Zeiten/Frequenz: einfach beim Einrichten nennen (z. B. „nur montags", „abends 18 Uhr").
-- Beenden: „lösch den täglichen Eisenhower-Check" — Hermes entfernt den Cron-Job.
+- Andere Zeiten/Frequenz: einfach beim Einrichten nennen (z. B. „nur werktags", „Planung um 20 Uhr").
+- Beenden: „lösch die Abendplanung" / „lösch den Morgen-Frosch" — Hermes entfernt den jeweiligen Cron-Job.
 - Vorher immer bestätigen lassen, welche Zeit gilt, damit keine ungewollten Pings entstehen.

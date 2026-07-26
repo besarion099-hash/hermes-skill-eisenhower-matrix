@@ -16,12 +16,18 @@
   .cell .hint { color:#6e6e73; font-size:.8rem; margin-bottom:10px; }
   .cell ul { padding-left:20px; display:grid; gap:6px; font-size:.95rem; }
   .cell ul:empty::after { content:"—"; color:#a1a1a6; }
+  .today { background:#fff; border-radius:12px; padding:16px 18px; border-left:6px solid #4caf50; box-shadow:0 1px 3px rgba(0,0,0,.08); max-width:960px; margin-bottom:16px; }
+  .today h2 { font-size:1rem; margin-bottom:2px; }
+  .today .hint { color:#6e6e73; font-size:.8rem; margin-bottom:10px; }
+  .today ol { padding-left:22px; display:grid; gap:6px; font-size:.95rem; }
+  .today ol:empty::after { content:"—"; color:#a1a1a6; }
   @media (max-width:640px){ .grid{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
 <h1>Eisenhower-Matrix</h1>
 <p class="updated">Zuletzt aktualisiert: <!--UPDATED--></p>
+<div class="today"><h2>🐸 Heute</h2><p class="hint">Max. 6 Aufgaben — Platz 1 ist der Frosch</p><ol><!--TODAY_ITEMS--></ol></div>
 <div class="grid">
   <div class="cell" style="--c:var(--q1)"><h2>🔴 Q1 — Dringend &amp; wichtig</h2><p class="hint">Sofort erledigen</p><ul><!--Q1_ITEMS--></ul></div>
   <div class="cell" style="--c:var(--q2)"><h2>🟡 Q2 — Wichtig, nicht dringend</h2><p class="hint">Einplanen</p><ul><!--Q2_ITEMS--></ul></div>
