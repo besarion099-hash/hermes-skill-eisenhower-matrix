@@ -1,0 +1,17 @@
+[
+  {"aufgabe": "Steuererklärung abgeben, Frist ist morgen", "soll": "Q1"},
+  {"aufgabe": "Zahnarzt wegen starker Schmerzen heute anrufen", "soll": "Q1", "zwei_min": true},
+  {"aufgabe": "Stromrechnung bezahlen, Mahnung mit Frist übermorgen", "soll": "Q1"},
+  {"aufgabe": "Mietvertrag kündigen, Kündigungsfrist endet morgen", "soll": "Q1"},
+  {"aufgabe": "Jeden Abend 20 Minuten Rückenübungen anfangen", "soll": "Q2"},
+  {"aufgabe": "Altersvorsorge prüfen und einen Sparplan einrichten", "soll": "Q2"},
+  {"aufgabe": "Englischkurs für nächstes Halbjahr aussuchen", "soll": "Q2"},
+  {"aufgabe": "Testament aufsetzen", "soll": "Q2"},
+  {"aufgabe": "Nachbar fragt, ob ich heute Abend sein Paket annehme", "soll": "Q3"},
+  {"aufgabe": "Kollege will heute noch schnell meine Meinung zu seiner Folie", "soll": "Q3", "zwei_min": true},
+  {"aufgabe": "Rückruf vom Möbelhaus wegen Werbeaktion, die heute endet", "soll": "Q3"},
+  {"aufgabe": "Alte Urlaubsfotos von 2015 umbenennen", "soll": "Q4"},
+  {"aufgabe": "Neue Folge der Lieblingsserie schauen", "soll": "Q4"},
+  {"aufgabe": "Social-Media-Profilbild ändern", "soll": "Q4", "zwei_min": true},
+  {"aufgabe": "Die Schubladen in der Küche nach Farben sortieren", "soll": "Q4"}
+]

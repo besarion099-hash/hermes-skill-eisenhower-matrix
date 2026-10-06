@@ -1,7 +1,7 @@
 ---
 name: eisenhower-matrix
 description: Persönliches Produktivitätssystem aus 5 Methoden — Aufgaben erfassen (2-Minuten-Filter), nach Eisenhower sortieren, per Pareto gewichten, abends max. 6 Tagesaufgaben wählen (Ivy Lee) und morgens mit dem Frosch starten (Eat That Frog). Eine dauerhafte Matrix-Datei, kompakt im Chat oder als HTML.
-version: 2.1.0
+version: 2.2.0
 author: Besarion
 metadata:
   hermes:
@@ -55,25 +55,48 @@ Aufgaben kommen als Text, Bild oder Sprachnachricht herein; du analysierst sie, 
 3. **Unerledigtes wandert kommentarlos als Übertrag an die Spitze des nächsten Tagesplans** — kein Vorwurf, das ist bei Ivy Lee so vorgesehen.
 4. **🔵 Q3 und ⚪ Q4 belegen nie Tagesplan-Plätze** — Q3 wird delegiert oder nebenbei erledigt, Q4 gestrichen.
 
+## Jev (optional): Einschätzungen vom MCP-Server `jev`
+
+Ist der MCP-Server `jev` eingebunden, holst du die Einschätzungen von dort, statt sie selbst zu schätzen. Er hat drei Werkzeuge: `einsortieren`, `zwei_minuten`, `rangfolge`.
+
+- **Leitziele mitgeben:** `einsortieren` bekommt immer den Text des Abschnitts 🎯 Leitziele (leer, wenn keiner da ist) und das heutige Datum (`YYYY-MM-DD`). `rangfolge` bekommt die Leitziele und wird nur gerufen, wenn welche definiert sind; sonst gilt der Standardweg (Procedure D).
+- **Ausfall:**
+  - Eine Antwort mit `verfuegbar: false` und ein Werkzeug-Fehler bzw. eine Ausnahme statt einer JSON-Antwort zählen gleich.
+  - Dann so arbeiten, als gäbe es Jev nicht (Standardweg dieser Procedure).
+  - Nach einem fehlgeschlagenen Jev-Aufruf keine weiteren Jev-Aufrufe im selben Ablauf (dieselbe Nachricht, dieselbe Planung); den Rest mit dem Standardweg erledigen.
+  - „(ohne Jev)“ an die Bestätigung (Procedure A) bzw. die Vorschlagszeile (Procedure D) anhängen, sobald das Einsortieren oder die Rangfolge wegen eines Ausfalls ohne Jev gelaufen ist — auch wenn Jev nach einem früheren Fehlschlag im selben Ablauf gar nicht mehr gefragt wurde. Wurde `rangfolge` nur übersprungen, weil keine Leitziele definiert sind, kein „(ohne Jev)“.
+  - Ist `melden: true`, einmal sagen: „Hinweis: Jev ist gerade nicht erreichbar (<grund>). Ich sortiere solange selbst.“
+- **Werkzeug fehlt ganz** (Server nicht eingebunden): Standardweg ohne Hinweis.
+- **Was du liest:** `verfuegbar`, `grund`, `melden`; bei `einsortieren` zusätzlich `quadrant`, `sicher`, `unklar`; bei `zwei_minuten` `sofort_erledigen`; bei `rangfolge` `reihenfolge` (nur die Reihenfolge). Die Zahlenwerte (`wichtig`, `dringend`, `schnell`, `wert`) wertest du nie selbst aus — die Schwellen entscheidet der Server.
+
 ## Procedure
 
 ### A. Aufgabe erfassen
 
-0. **2-Minuten-Filter:** Wirkt die Aufgabe in unter 2 Minuten erledigbar (kurzer Anruf, eine Antwort-Nachricht, etwas wegwerfen)? Dann vorschlagen, sie SOFORT zu erledigen statt sie zu speichern:
+0. **2-Minuten-Filter:** Mit Jev: `zwei_minuten(aufgabe)` rufen. Nur bei `sofort_erledigen: true` vorschlagen, sie SOFORT zu erledigen. Ohne Jev selbst einschätzen: Wirkt die Aufgabe in unter 2 Minuten erledigbar (kurzer Anruf, eine Antwort-Nachricht, etwas wegwerfen)? Vorschlag:
    > „Das dauert keine 2 Minuten — mach es am besten gleich, dann muss ich es gar nicht notieren. Trotzdem speichern?"
    Nutzer will speichern → normal weiter mit Schritt 1.
 1. Eingabe analysieren:
    - **Text:** Aufgabe(n) direkt extrahieren.
    - **Bild:** Kurz benennen, was du erkennst („Rechnung von Stadtwerke, fällig 15.07."), daraus die Aufgabe ableiten.
    - **Sprachnachricht:** Aus der Transkription die Aufgabe(n) extrahieren.
-2. Quadranten **vorschlagen** (Standardweg), mit Ein-Satz-Begründung. Wichtigkeit prüfen in dieser Reihenfolge: (a) Zahlt die Aufgabe auf ein 🎯 Leitziel ein? — dann das Ziel in der Begründung nennen („→ zahlt auf Ziel 2 ein"); (b) sonst die Konsequenz-Frage: „Was passiert, wenn es liegen bleibt?" Regeln: `references/classification-guide.md`. Format:
+2. **Mit Jev:** `einsortieren(aufgabe, leitziele, heute)` rufen; gelesen werden `quadrant` (Q1–Q4), `sicher` und `unklar`.
+   - `sicher: true` → direkt speichern (Schritt 5) und kurz melden, mit Ein-Satz-Begründung (Leitziel nennen, wenn eines passt) und Handlungsempfehlung (Q1 sofort, Q2 einplanen, Q3 delegieren, Q4 streichen/irgendwann). `<Emoji> <Q?>` kommt aus `quadrant`:
+     > „✅ *<Aufgabe>* → <Emoji> <Q?> — <Begründung>. <Handlungsempfehlung>. (Anders? Sag 1–4.)"
+   - `sicher: false` → NUR den unklaren Punkt fragen. Die schon sichere Dimension liest du am Buchstaben in `quadrant` ab, nie an den Zahlen: Q1/Q2 ⇒ wichtig ja, Q3/Q4 ⇒ wichtig nein; Q1/Q3 ⇒ dringend ja, Q2/Q4 ⇒ dringend nein.
+     - `unklar: ["wichtig"]` → „Ist *<Aufgabe>* wichtig für dich bzw. deine Ziele? (ja/nein)"
+     - `unklar: ["dringend"]` → „Muss *<Aufgabe>* in den nächsten 7 Tagen erledigt sein? (ja/nein)"
+     - beide → beide Fragen in EINER Nachricht.
+     Aus der Antwort und der sicheren Dimension den Quadranten bilden (wichtig+dringend=Q1, nur wichtig=Q2, nur dringend=Q3, keins=Q4), dann speichern.
+   - Ausfall (siehe Jev-Abschnitt) → weiter mit dem Standardweg (Schritt 3), Bestätigung mit „(ohne Jev)“.
+3. **Standardweg (ohne Jev):** Quadranten **vorschlagen**, mit Ein-Satz-Begründung. Wichtigkeit prüfen in dieser Reihenfolge: (a) Zahlt die Aufgabe auf ein 🎯 Leitziel ein? — dann das Ziel in der Begründung nennen („→ zahlt auf Ziel 2 ein"); (b) sonst die Konsequenz-Frage: „Was passiert, wenn es liegen bleibt?" Regeln: `references/classification-guide.md`. Format:
    > „Ich habe notiert: *<Aufgabe>*. Mein Vorschlag: <Emoji> <Q?> — <Begründung>. Passt das? (ja / oder 1–4 für einen anderen Quadranten)"
-3. Antwort auswerten: „ja"/👍 → speichern; Zahl 1–4 oder freie Formulierung → Korrektur übernehmen.
-4. Nur wenn keine belastbare Einschätzung möglich ist: offene Frage ohne Vorschlag —
+   Antwort auswerten: „ja"/👍 → speichern; Zahl 1–4 oder freie Formulierung → Korrektur übernehmen.
+4. Nur wenn keine belastbare Einschätzung möglich ist (ohne Jev): offene Frage ohne Vorschlag —
    1️⃣ dringend & wichtig · 2️⃣ wichtig, nicht dringend · 3️⃣ dringend, nicht wichtig · 4️⃣ weder noch
 5. Speichern: Zeile `- [ ] <Aufgabe> (hinzugefügt: <YYYY-MM-DD>)` in den Quadranten-Abschnitt einfügen; Deadline in Klammern ergänzen, falls bekannt („bis <YYYY-MM-DD>"). `Zuletzt aktualisiert` im Kopf aktualisieren. Gezielte Edits — die Datei nie komplett überschreiben.
-6. Bestätigen: ein Satz mit Quadrant und Handlungsempfehlung (Q1 sofort, Q2 einplanen, Q3 delegieren, Q4 streichen/irgendwann).
-7. **Mehrere Aufgaben in einer Eingabe:** alle mit je einem Vorschlag auflisten, EINE gesammelte Bestätigung einholen.
+6. Bestätigen: ein Satz mit Quadrant und Handlungsempfehlung (Q1 sofort, Q2 einplanen, Q3 delegieren, Q4 streichen/irgendwann). (Entfällt, wenn in Schritt 2 mit Jev schon gemeldet wurde.)
+7. **Mehrere Aufgaben in einer Eingabe:** alle mit je einem Vorschlag auflisten, EINE gesammelte Bestätigung einholen. Mit Jev: je Aufgabe `zwei_minuten` und `einsortieren`. EINE Sammelmeldung für alle sicheren Aufgaben (direkt eintragen) und in derselben Nachricht die Fragen zu den unklaren Punkten der übrigen.
 
 ### B. Matrix anzeigen
 
@@ -95,12 +118,13 @@ Regeln im Detail: `references/tagesplan-guide.md`.
 1. Matrix lesen. Kandidaten sammeln in dieser Reihenfolge:
    a. **Übertrag:** unerledigte Aufgaben aus dem aktuellen Heute-Abschnitt (ohne ✅) — die kommen zuerst.
    b. Alle offenen 🔴 Q1-Aufgaben.
-   c. 🟡 Q2-Aufgaben — per Pareto auswählen: „Welche bringt morgen Ziel 1–3 (🎯 Leitziele) am weitesten voran?" Sind keine Leitziele definiert: EINMAL anbieten, jetzt bis zu 3 festzulegen (Procedure G) — lehnt der Nutzer ab, nie wieder ungefragt nachhaken.
+   c. 🟡 Q2-Aufgaben — per Pareto auswählen: „Welche bringt morgen Ziel 1–3 (🎯 Leitziele) am weitesten voran?" Mit Jev und definierten Leitzielen: alle offenen Q1- und Q2-Aufgaben (Übertrag inklusive) an `rangfolge(aufgaben, leitziele)` geben und dessen Reihenfolge als Pareto-Antwort nehmen (oberste zuerst). Ohne Jev, bei Ausfall oder ohne Leitziele: selbst einschätzen (Standardweg). Sind keine Leitziele definiert: EINMAL anbieten, jetzt bis zu 3 festzulegen (Procedure G) — lehnt der Nutzer ab, nie wieder ungefragt nachhaken.
    d. **Q1-Überlauf-Check:** Stehen mehr als 5 offene Aufgaben in Q1, kann nicht alles gleich dringend UND wichtig sein — anbieten, die Einstufung gemeinsam zu prüfen, bevor geplant wird.
-2. Daraus **maximal 6** vorschlagen, davon **mindestens 2 aus Q2** (Konfliktregel 2). Q3/Q4 nie (Konfliktregel 4).
-3. **Frosch bestimmen:** die wichtigste UND unangenehmste Aufgabe auf Platz 1 — im Zweifel fragen: „Welche davon schiebst du am längsten vor dir her?"
+2. Daraus **maximal 6** vorschlagen, davon **mindestens 2 aus Q2** (Konfliktregel 2). Q3/Q4 nie (Konfliktregel 4). `rangfolge` ändert nur die Reihenfolge innerhalb dieser Regeln (Übertrag zuerst, max. 6, min. 2× Q2, Q3/Q4 nie).
+3. **Frosch bestimmen:** die wichtigste UND unangenehmste Aufgabe auf Platz 1 — im Zweifel fragen: „Welche davon schiebst du am längsten vor dir her?" Liegt eine `rangfolge` vor, ist der Frosch-Kandidat die höchstplatzierte Aufgabe daraus, die im Vorschlag steht; ist eine andere Aufgabe deutlich unangenehmer, im Zweifel fragen.
 4. Vorschlag als nummerierte Liste zeigen, Frosch markiert:
    > „Mein Vorschlag für morgen: 1. 🐸 … · 2. … · 3. … — Passt das? (ja / oder sag mir, was du tauschen willst)"
+   Ist `rangfolge` ausgefallen, die Vorschlagszeile mit „(ohne Jev)“ beenden.
 5. Nach Bestätigung: alten Heute-Abschnitt ersetzen durch `## 🐸 Heute (<morgiges Datum>)` mit der Liste 1–6 ganz oben in der Matrix-Datei (direkt unter `Zuletzt aktualisiert`). Aufgaben bleiben zusätzlich in ihren Quadranten stehen.
 6. Weniger als 6 Kandidaten? Völlig okay — lieber 3 echte als 6 aufgefüllte. Mehr als 6 gewünscht? Freundlich ablehnen: „Ivy Lee wirkt gerade WEIL es nur 6 sind — was davon kann auf übermorgen?"
 
@@ -142,6 +166,8 @@ Die Leitziele beantworten: „Was will ich dieses Jahr voranbringen?" Sie machen
 - 2-Minuten-Filter zu aggressiv → im Zweifel speichern; der Filter ist ein Angebot, kein Zwang.
 - Leitziele sind Nutzer-Text → beim Einstufen/Planen nur lesen, nie umformulieren oder löschen; Änderungen nur auf ausdrücklichen Wunsch (Procedure G).
 - Q1 quillt über (>5 Einträge) → nicht stumm weiterplanen; Einstufungs-Check anbieten.
+- Jev-Werte sind Einschätzungen, keine Wahrheit → Korrekturen des Nutzers („nein, das ist Q3") haben immer Vorrang und werden ohne Diskussion übernommen.
+- `verfuegbar: false` mehrmals am Tag → bei `melden: true` einmal hinweisen, danach still mit „(ohne Jev)“ weiterarbeiten, bis Jev wieder antwortet.
 
 ## Verification
 
@@ -157,3 +183,7 @@ Die Leitziele beantworten: „Was will ich dieses Jahr voranbringen?" Sie machen
 - Nächste Abendplanung → gestriges Unerledigtes erscheint als Übertrag ganz oben im Vorschlag.
 - „als Datei" → HTML-Datei erzeugt und versendet, öffnet als Heute-Band + 2×2-Grid im Browser.
 - Vage Notiz ohne Prioritätssignale → offene 1–4-Frage statt erfundenem Vorschlag.
+- Mit Jev, eindeutige Aufgabe („Steuererklärung, Frist morgen") → direkt in Q1 eingetragen, kurze Meldung ohne Rückfrage.
+- Mit Jev, unklare Aufgabe → genau eine Ja/Nein-Frage zum unklaren Punkt, danach Eintrag.
+- Jev nicht erreichbar → Vorschlag wie ohne Jev, Bestätigung endet mit „(ohne Jev)“; beim 3. Fehlschlag in Folge ein Hinweis.
+- Abendplanung mit Jev (und Leitzielen) → Q2-Auswahl folgt der `rangfolge`, Ivy-Lee-Regeln bleiben erfüllt.

@@ -35,7 +35,7 @@ Sind keine Leitziele definiert, gilt Kriterium 2 und 3 allein (wie früher).
 ## Beispiele
 
 - Text: „muss HEUTE noch die Versicherung anrufen" → Q1 (Signalwort „heute" + Konsequenz).
-- Bild: Foto einer Rechnung, fällig in 9 Tagen → Q1, Aufgabe „<Absender>-Rechnung zahlen (bis <Datum>)".
+- Bild: Foto einer Rechnung, fällig in 5 Tagen → Q1, Aufgabe „<Absender>-Rechnung zahlen (bis <Datum>)".
 - Sprachnachricht: „denk dran, ich will dieses Jahr endlich Spanisch lernen" → Q2 (Ziel, keine Frist).
 - Text: „Vokabel-App einrichten" bei Leitziel 2 „Spanisch lernen" → Q2 („→ zahlt auf Ziel 2 ein").
 - Text: „Newsletter abbestellen irgendwann" → Q4.
@@ -51,3 +51,7 @@ Sind keine Leitziele definiert, gilt Kriterium 2 und 3 allein (wie früher).
 
 Alle Aufgaben nummeriert mit je einem Vorschlag auflisten, dann EINE Sammelbestätigung:
 > „1. … → 🔴 Q1 (…) · 2. … → 🟡 Q2 (…) · Passt das so? Antworte z. B. ‚ja' oder ‚1 nach Q2'."
+
+## Mit Jev
+
+Ist der MCP-Server `jev` eingebunden, liefert Jev den Quadranten und ob er sicher ist (`quadrant`, `sicher`, `unklar`); die Zahlenwerte dahinter wertest du nicht selbst aus. Die Regeln oben bleiben der Maßstab für den Standardweg ohne Jev und für die Begründung, die du dem Nutzer nennst.

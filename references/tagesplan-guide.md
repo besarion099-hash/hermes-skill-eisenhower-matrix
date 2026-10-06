@@ -69,3 +69,7 @@ Faustregeln:
 - **Frosch aufweichen:** „Erst kurz Mails checken" ist der klassische Frosch-Killer. Freundlich erinnern, nie belehren.
 - **Q2 vertagen:** „Nächste Woche ist mehr Luft" stimmt nie — deshalb die 2er-Quote.
 - **Übertrag problematisieren:** Nicht fragen „warum hast du das nicht geschafft?" — einfach nach vorn schieben.
+
+## Mit Jev
+
+`rangfolge` liefert für die Pareto-Auswahl eine Reihenfolge nach Beitrag zu den Leitzielen. Sie ersetzt nur das Bauchgefühl bei „welche bringt am meisten?“. Alle Ivy-Lee- und Frosch-Regeln oben gelten unverändert.

@@ -1,4 +1,4 @@
-# eisenhower-matrix — Hermes-Agent-Skill (v2.1)
+# eisenhower-matrix — Hermes-Agent-Skill (v2.2)
 
 *Deutsch | [English below ⬇](#english)*
 
@@ -68,16 +68,21 @@ eisenhower-matrix/
 │   ├── classification-guide.md   # Eisenhower-Einstufungsregeln + Beispiele
 │   ├── tagesplan-guide.md        # Ivy Lee, Pareto & Frosch-Wahl
 │   └── cron-setup.md             # Tagesrhythmus-Routinen (18:00 / 7:00)
+├── jev-mcp/                      # optionaler MCP-Server für Jev
 └── README.md
 ```
 
-Alles ist reines Markdown/HTML — direkt editierbar, keine Skripte, keine Abhängigkeiten.
+Alles ist reines Markdown/HTML und direkt editierbar. Der Skill selbst braucht keine Skripte; nur die optionale Jev-Anbindung bringt einen kleinen Python-Server mit.
+
+## Optional: Jev (TypeSafe)
+
+Ab 2.2.0 kann Hermes Aufgaben mit TypeSafes Entscheidungsmodell Jev einsortieren (Ordner `jev-mcp/`, MCP-Server `jev`). Eindeutige Fälle trägt Hermes direkt ein, bei unklaren fragt er nach. Ohne Jev läuft alles wie bisher. Einrichtung: Schlüssel mit `jev-mcp/schluessel_eintragen.py` speichern und den Server in der Hermes-Konfiguration unter `mcp_servers` als `jev` eintragen (`command`: Python des Hermes-venv, `args`: Pfad zu `jev-mcp/jev_mcp.py`). Datenschutz: Aufgabentext, Datum und Leitziele werden dafür an api.typesafe.ai geschickt. Nach Updates von Hermes mit `hermes mcp test jev` prüfen, ob der Server noch lädt — fehlt er, arbeitet der Skill still ohne Jev weiter.
 
 ---
 
 <a name="english"></a>
 
-# eisenhower-matrix — Hermes Agent Skill (v2.1, English)
+# eisenhower-matrix — Hermes Agent Skill (v2.2, English)
 
 ![Project overview (English)](docs/project-overview-en.png)
 
@@ -135,7 +140,11 @@ hermes config set eisenhower.file "obsidian-vault/Eisenhower-Matrix.md"
 
 ## Folder structure
 
-Same as above — pure Markdown/HTML, directly editable, no scripts, no dependencies.
+Same as above, including the `jev-mcp/` folder (optional MCP server for Jev). Everything is plain Markdown/HTML and directly editable. The skill itself needs no scripts; only the optional Jev connection ships a small Python server.
+
+## Optional: Jev (TypeSafe)
+
+Since 2.2.0, Hermes can classify tasks with TypeSafe's decision model Jev (folder `jev-mcp/`, MCP server `jev`). Clear-cut cases are filed directly, and Hermes asks only when something is unclear. Without Jev everything works as before. Setup: store the key with `jev-mcp/schluessel_eintragen.py` and register the server in the Hermes configuration under `mcp_servers` as `jev` (`command`: Python of the Hermes venv, `args`: path to `jev-mcp/jev_mcp.py`). Privacy: task text, date and goals are sent to api.typesafe.ai. After Hermes updates, run `hermes mcp test jev` to check the server still loads — if it is missing, the skill silently works without Jev.
 
 ---
 
