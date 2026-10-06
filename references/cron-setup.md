@@ -24,7 +24,11 @@ Der Wochenrückblick (Procedure H) läuft in der Sonntags-Abendplanung mit: Woch
 
 ## Achtung Zeitzone
 
-Viele Server rechnen Cron-Zeiten in UTC. Dann muss die Uhrzeit bei der Zeitumstellung angepasst werden (Wien: Sommerzeit UTC+2, Winterzeit UTC+1). Beispiel 18:00 Wiener Zeit: im Sommer `0 16 * * *`, im Winter `0 17 * * *`. Beim Einrichten prüfen, in welcher Zeitzone der Scheduler rechnet.
+Ist bei Hermes keine Zeitzone eingestellt (`timezone: ''` in `config.yaml`), rechnet der Scheduler in der Server-Zeit, oft UTC. Dann verschiebt sich jede Erinnerung bei der Zeitumstellung um eine Stunde.
+
+**Lösung:** einmal die eigene Zeitzone setzen, z. B. `hermes config set timezone Europe/Vienna`, und die Cron-Zeiten danach in Ortszeit angeben (18:00 = `0 18 * * *`). Hermes berücksichtigt Sommer- und Winterzeit dann selbst.
+
+**Achtung beim nachträglichen Umstellen:** Bestehende Jobs wurden in UTC angelegt. Nach dem Setzen der Zeitzone jede wiederkehrende Uhrzeit mit `hermes cron edit <id> --schedule "…"` in Ortszeit umrechnen (Sommerzeit: UTC + 2 Stunden), danach das Gateway neu starten und mit `hermes cron list` prüfen. Einmalige Termine behalten ihren Zeitpunkt und brauchen keine Änderung.
 
 ## Einrichtung (durch den Nutzer angestoßen)
 
