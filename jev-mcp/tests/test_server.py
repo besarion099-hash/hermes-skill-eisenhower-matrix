@@ -119,3 +119,17 @@ def test_rangfolge_wert_wird_begrenzt(monkeypatch):
     assert r["reihenfolge"] == [{"aufgabe": "zu hoch", "wert": 1.0},
                                 {"aufgabe": "normal", "wert": 0.5},
                                 {"aufgabe": "zu tief", "wert": 0.0}]
+
+
+def test_zustand_pruefen_ohne_jev_und_ohne_fehlerzaehler(monkeypatch):
+    _fehler(monkeypatch)
+    r = jev_mcp.zustand_pruefen("## 🐸 Heute (2026-10-05)\n1. 🐸 Brief schreiben (übertragen: 4×)\n", "2026-10-06")
+    assert r["verfuegbar"] is True
+    assert r["plan"]["veraltet"] is True
+    assert r["festsitzend"] == [{"aufgabe": "Brief schreiben", "uebertragen": 4}]
+    assert jev_mcp._fehler_in_folge == 0
+
+
+def test_zustand_pruefen_falsches_datum():
+    r = jev_mcp.zustand_pruefen("", "06.10.2026")
+    assert r == {"verfuegbar": False, "grund": "heute muss YYYY-MM-DD sein", "melden": False}

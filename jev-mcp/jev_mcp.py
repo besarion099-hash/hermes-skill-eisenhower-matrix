@@ -13,6 +13,7 @@ from mcp.server.mcpserver import MCPServer  # noqa: E402
 
 import jev_client as jc  # noqa: E402
 import logik  # noqa: E402
+import zustand  # noqa: E402
 
 server = MCPServer(
     name="jev",
@@ -93,6 +94,19 @@ def rangfolge(aufgaben: list[str], leitziele: str = "") -> dict:
     except (KeyError, TypeError):
         return _fehlschlag("unerwartete Antwort")
     return _erfolg({"reihenfolge": logik.sortiere_rangfolge(paare)})
+
+
+@server.tool()
+def zustand_pruefen(matrix: str, heute: str) -> dict:
+    """Rechnet den Zustand der Matrix aus: Plan-Alter, festsitzende Aufgaben, Fristen, alte Einträge, Wochenbilanz.
+
+    matrix: kompletter Text der Matrix-Datei. heute: heutiges Datum YYYY-MM-DD.
+    Braucht weder Jev noch Netz und ist deshalb immer verfügbar.
+    """
+    ergebnis = zustand.pruefe(matrix, heute)
+    if "fehler" in ergebnis:
+        return {"verfuegbar": False, "grund": ergebnis["fehler"], "melden": False}
+    return {"verfuegbar": True, **ergebnis}
 
 
 if __name__ == "__main__":
